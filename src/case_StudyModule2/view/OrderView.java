@@ -79,7 +79,7 @@ public class OrderView {
             System.out.print("NHẬP TÊN : ");
             String name = sc.nextLine();
             while (!ValidateUtils.isNameValid(name)) {
-                System.out.println("TÊN PHẢI VIẾT CHỮ CÁI HOA ĐẦU TIÊN");
+                System.out.println("TÊN PHẢI VIẾT CHỮ CÁI HOA ĐẦU TIÊN VÀ VIẾT KHÔNG DẤU");
                 System.out.print("NHẬP TÊN : ");
                 name = sc.nextLine();
             }

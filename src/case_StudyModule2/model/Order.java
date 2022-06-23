@@ -8,7 +8,7 @@ public class Order {
     private String mobile;
     private String address;
     private Double grandTotal;
-    private Instant createdAt;
+    private Instant timeNow;
     OrderItem orderItem = new OrderItem();
 
     public Order() {
@@ -82,12 +82,12 @@ public class Order {
         this.grandTotal = grandTotal;
     }
 
-    public Instant getCreatedAt() {
-        return createdAt;
+    public Instant getTimeNow() {
+        return timeNow;
     }
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
+    public void setTimeNow(Instant timeNow) {
+        this.timeNow = timeNow;
     }
 
     @Override
