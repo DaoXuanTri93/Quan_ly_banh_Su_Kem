@@ -248,7 +248,7 @@ public class ProductView {
 
     public void searchId(InputOption option) {
         long id;
-        while (!productService.exists(id = inputId(InputOption.SEARCH))) {
+        while (!productService.exists(id = inputId(option))) {
             System.out.println("KHÔNG TÌM THẤY ID CẦN TÌM");
             System.out.println("NHẤN 1 ĐÊ TIẾP TỤC \t|\t NHẤN 2 ĐỂ QUAY LẠI \t|\t NHẤN 0 ĐỂ THOÁT CHƯƠNG TRÌNH");
             System.out.print("░░░ ");
@@ -281,7 +281,7 @@ public class ProductView {
                         "▋▋\t\t【" + product.getId() + "】",
                         product.getTitle(),
                         product.getQuantity(),
-                        product.getPrice(),
+                        AppUtils.doubleToVND(product.getPrice()),
                         product.getTimeNow(),
                         product.getTimeUpdate() == null ? "" : InstantUtils.instantToString(product.getTimeUpdate()));
                 System.out.println("▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋");
@@ -308,7 +308,7 @@ public class ProductView {
                     "▋▋\t\t【" + product.getId() + "】",
                     product.getTitle(),
                     product.getQuantity(),
-                    product.getPrice(),
+                    AppUtils.doubleToVND(product.getPrice()),
                     product.getTimeNow(),
                     product.getTimeUpdate() == null ?"": InstantUtils.instantToString(product.getTimeUpdate()));
         }

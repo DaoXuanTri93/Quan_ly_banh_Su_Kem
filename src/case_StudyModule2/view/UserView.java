@@ -151,13 +151,30 @@ public class UserView {
     private String inputAddress(InputOption option) {
         switch (option) {
             case ADD:
+                String address;
                 System.out.print("NHẬP ĐỊA CHỈ : ");
-                break;
+                address = sc.nextLine();
+                do {
+                    if (address.trim().isEmpty()){
+                        System.out.println("ĐỊA CHỈ KHÔNG ĐƯỢC BỎ TRỐNG, XIN NHẬP NGHIÊM TÚC");
+                        System.out.print("NHẬP ĐỊA CHỈ : ");
+                        address = sc.nextLine();
+                    }
+                }while(address.trim().isEmpty());
+                return address;
             case UPDATE:
-                System.out.print("NHẬP ĐỊA CHỈ CẦN THAY ĐỔI : ");
-                break;
+                System.out.print("NHẬP ĐỊA CHỈ : ");
+                address = sc.nextLine();
+                do {
+                    if (address.trim().isEmpty()){
+                        System.out.println("ĐỊA CHỈ KHÔNG ĐƯỢC BỎ TRỐNG, XIN NHẬP NGHIÊM TÚC");
+                        System.out.print("NHẬP ĐỊA CHỈ : ");
+                        address = sc.nextLine();
+                    }
+                }while(address.trim().isEmpty());
+                return address;
         }
-        return sc.nextLine();
+        return null;
     }
 
     public void setRole(User user) {

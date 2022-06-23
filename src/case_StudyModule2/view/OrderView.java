@@ -5,6 +5,7 @@ import case_StudyModule2.model.OrderItem;
 import case_StudyModule2.model.Product;
 import case_StudyModule2.severies.*;
 import case_StudyModule2.utils.AppUtils;
+import case_StudyModule2.utils.CSVUtils;
 import case_StudyModule2.utils.ValidateUtils;
 
 import java.util.List;
@@ -32,7 +33,6 @@ public class OrderView {
 
     public OrderItem addOrderItems(long orderId) {
         oderItemService.findAll();
-
         ProductView productView = new ProductView();
         productView.showProducts(InputOption.ADD);
         long id = System.currentTimeMillis() / 1000;
@@ -49,6 +49,13 @@ public class OrderView {
         double price = product.getPrice();
         System.out.print("NHẬP SỐ LƯỢNG : ");
         int quantity = Integer.parseInt(sc.nextLine());
+        do {
+            if (quantity <= 0){
+                System.out.println("SỐ LƯỢNG PHẢI LỚN HƠN 0");
+                System.out.print("NHẬP SỐ LƯỢNG : ");
+                quantity = Integer.parseInt(sc.nextLine());
+            }
+        }while (quantity <= 0);
 
         while (!checkQualityBakery(product, quantity)) {
             System.out.println("SỐ LƯỢNG KHÔNG ĐỦ, XIN NHẬP LẠI");
@@ -84,9 +91,9 @@ public class OrderView {
                 phone = sc.nextLine();
             }
             String address;
+            System.out.print("NHẬP ĐỊA CHỈ : ");
+            address = sc.nextLine();
             do {
-                System.out.print("NHẬP ĐỊA CHỈ : ");
-                 address = sc.nextLine();
                  if (address.trim().isEmpty()){
                      System.out.println("ĐỊA CHỈ KHÔNG ĐƯỢC BỎ TRỐNG, XIN NHẬP NGHIÊM TÚC");
                      System.out.print("NHẬP ĐỊA CHỈ : ");
@@ -113,6 +120,7 @@ public class OrderView {
                 String choice = sc.nextLine();
                 switch (choice) {
                     case "1":
+//                        addOrderItems(System.currentTimeMillis() / 1000);
                         addOrder();
                         break;
                     case "2":
@@ -201,12 +209,12 @@ public class OrderView {
                         order.getAddress(),
                         newOrderItem.getProductName(),
                         newOrderItem.getQuantity(),
-                        newOrderItem.getPrice(),
-                        newOrderItem.getTotal()
+                        AppUtils.doubleToVND(newOrderItem.getPrice()),
+                        AppUtils.doubleToVND(newOrderItem.getTotal())
                 );
-                a += newOrderItem.getTotal();
+                AppUtils.doubleToVND(a += newOrderItem.getTotal());
             }
-            System.out.println("▋▋ TỔNG TIỀN :  "+ a);
+            System.out.println("▋▋ TỔNG TIỀN :  " + AppUtils.doubleToVND(a));
 
             System.out.println("▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋");
             boolean is = true;
@@ -227,7 +235,7 @@ public class OrderView {
                 }
             } while (!is);
         } catch (Exception e) {
-            e.getStackTrace();
+            System.out.println("NHẬP SAI, XIN NHẬP LẠI");
         }
     }
 
@@ -252,8 +260,8 @@ public class OrderView {
                     order.getAddress(),
                     orderItem.getProductName(),
                     orderItem.getQuantity(),
-                    orderItem.getPrice(),
-                    orderItem.getTotal()
+                    AppUtils.doubleToVND(orderItem.getPrice()),
+                    AppUtils.doubleToVND(orderItem.getTotal())
             );
             System.out.println("▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋▋");
             boolean is = true;
@@ -279,10 +287,5 @@ public class OrderView {
         } catch (Exception e) {
             System.out.println("NHẬP SAI, XIN NHẬP LẠI");
         }
-    }
-
-    public static void main(String[] args) {
-        OrderView orderView = new OrderView();
-        orderView.orderMenu();
     }
 }
